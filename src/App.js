@@ -6,12 +6,13 @@ import { faChevronRight, faChevronLeft, faCircle, faCheckCircle, faPlus } from '
 const App = () => {
   // HINT: each "item" in our list names a name, a boolean to tell if its been completed, and a quantity
   const [items, setItems] = useState([
-    { itemName: 'item1', quantity: 1, isSelected: false },
-    { itemName: 'item2', quantity: 3, isSelected: true },
-    { itemName: 'item3', quantity: 7, isSelected: false },
+    { itemName: 'item1', quantity: 0, isSelected: false },
+    { itemName: 'item2', quantity: 0, isSelected: false },
+    { itemName: 'item3', quantity: 0, isSelected: false },
   ]);
 
   const [inputValue, setInputValue] = useState("")
+  const [totalItemCount, setTotalItemCount] = useState(0)
 
   const handleAddButtonClick = () => {
     const newItem = {
@@ -30,18 +31,27 @@ const App = () => {
     const newItems = [...items];
     newItems[index].quantity++;
     setItems(newItems)
+    calculateTotal();
   }
 
   const handleQuantityDecrease = (index) => {
     const newItems = [...items];
     newItems[index].quantity--;
     setItems(newItems)
+    calculateTotal();
   }
 
   const toggleComplete = (index) => {
     const newItems = [...items];
     newItems[index].isSelected = !newItems[index].isSelected;
     setItems(newItems)
+  }
+
+  const calculateTotal = () => {
+    const totalItemCount = items.reduce((total, item) => {
+      return total + item.quantity
+    }, 0)
+    setTotalItemCount(totalItemCount)
   }
 
   return (
@@ -79,7 +89,7 @@ const App = () => {
           </div>)}
 
         </div>
-        <div className='total'>Total: 6</div>
+        <div className='total'>Total: {totalItemCount}</div>
       </div>
     </div>
   );
