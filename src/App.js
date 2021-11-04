@@ -38,6 +38,12 @@ const App = () => {
     setItems(newItems)
   }
 
+  const toggleComplete = (index) => {
+    const newItems = [...items];
+    newItems[index].isSelected = !newItems[index].isSelected;
+    setItems(newItems)
+  }
+
   return (
     <div className='app-background'>
       <div className='main-container'>
@@ -47,12 +53,12 @@ const App = () => {
         </div>
         <div className='item-list'>
           {items.map((item, index) => <div className='item-container'>
-            <div className='item-name'>
+            <div className='item-name' onClick={() => toggleComplete(index)}>
               {/* HINT: replace false with a boolean indicating the item has been completed or not */}
               {item.isSelected ? (
                 <>
                   <FontAwesomeIcon icon={faCheckCircle} />
-                  <span className='completed'>{item.itemName}</span>
+                  <span className='completed'>{item.itemName} </span>
                 </>
               ) : (
                 <>
